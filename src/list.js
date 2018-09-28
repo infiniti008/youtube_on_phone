@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let get = function(test){
+let get = function(){
   const youtubedl = require('youtube-dl');
   
   let conf = JSON.parse(fs.readFileSync(__dirname + '/../conf.json').toString());
@@ -8,17 +8,18 @@ let get = function(test){
   
   // Optional arguments passed to youtube-dl.
   let options = ['--username=user', '--password=hunter2'];
-  if(test){
-    return Promise.resolve()
+  if(conf.local_test){
+    return Promise.resolve(true);
   } else {
     return new Promise(function(resolve, reject){
       youtubedl.getInfo(url, options, function(err, info) {
         if (err) {
-          reject(err);
+          console.log(err);
+          resolve(false);
         }
         else{
           fs.writeFileSync(__dirname + '/playlist_info.json', JSON.stringify(info));
-          resolve();
+          resolve(true);
         }
       });
     }) 
@@ -27,8 +28,6 @@ let get = function(test){
 }
 
 let parse = function(){
-	const _ = require('lodash');
-
 	let conf = JSON.parse(fs.readFileSync(__dirname + '/../conf.json').toString());
 	const info = JSON.parse(fs.readFileSync(__dirname + '/playlist_info.json').toString());
 
@@ -37,16 +36,14 @@ let parse = function(){
   let ytarr = [];
 	for(let obj of info){
 		let result = {};
-		let position_in_top = 11;
-		for(let val of obj.formats){
-			let position_current = formats_range.indexOf(val.format_id * 1)
-			if(position_current != -1 && position_current < position_in_top){
-				position_in_top = position_current;
-				result = _.pick(val, ['format', 'height', 'format_id', 'container', 'vcodec', 'width', 'ext', 'filesize']);
-        let to_slice = obj.webpage_url_basename.length + result.ext.length + 2;
-        result.filename = obj._filename.slice(0, -to_slice) + '.' + val.ext;
-			}
-		}
+    
+    result.format = obj.format;
+    result.ext = obj.ext;
+    
+    let to_slice = obj.webpage_url_basename.length + obj.ext.length + 2;
+    result.filename = obj._filename.slice(0, -to_slice) + '.' + obj.ext;
+
+    result.format_id = obj.format_id;
 		result.webpage_url = obj.webpage_url;
     result.webpage_url_basename = obj.webpage_url_basename;
     result.playlist = obj.playlist;
@@ -54,19 +51,9 @@ let parse = function(){
     ytarr.push(result);
   }
   
-  conf.list_youtube = ytarr;
-	// console.log(conf.list_youtube)
-
-	fs.writeFileSync(__dirname + '/../conf.json', JSON.stringify(conf));
-	return Promise.resolve(conf);
-}
-
-let todownload = function(){
-  let conf = JSON.parse(fs.readFileSync(__dirname + '/../conf.json').toString());
-
   let toarr = [];
 
-  toarr = conf.list_youtube.filter(function(val){
+  toarr = ytarr.filter(function(val){
     return !conf.list_local.some(function(local_val){
       return local_val.webpage_url_basename == val.webpage_url_basename;
     })
@@ -75,10 +62,17 @@ let todownload = function(){
   conf.list_todownload = toarr;
 
 	fs.writeFileSync(__dirname + '/../conf.json', JSON.stringify(conf));
+	return Promise.resolve(conf);
 }
 
-module.exports = {
-  get: get,
-  todownload: todownload,
-  parse: parse
-}
+let list_cunstruct = async function(){
+  let playlist_got = await get();
+  if(playlist_got){
+    let conf = await parse();
+    process.exit(8);
+  } else {
+    process.exit(9);
+  }
+} 
+
+list_cunstruct();
