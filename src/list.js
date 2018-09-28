@@ -1,4 +1,5 @@
 const fs = require('fs');
+let pl_info;
 
 let get = function(){
   const youtubedl = require('youtube-dl');
@@ -18,7 +19,8 @@ let get = function(){
           resolve(false);
         }
         else{
-          fs.writeFileSync(__dirname + '/playlist_info.json', JSON.stringify(info));
+          // fs.writeFileSync(__dirname + '/playlist_info.json', JSON.stringify(info));
+          pl_info = info;
           resolve(true);
         }
       });
@@ -29,9 +31,8 @@ let get = function(){
 
 let parse = function(){
 	let conf = JSON.parse(fs.readFileSync(__dirname + '/../conf.json').toString());
-	const info = JSON.parse(fs.readFileSync(__dirname + '/playlist_info.json').toString());
-
-	const formats_range = [137,246,136,245,135,244,134,243,133,242,132,241];
+  // const info = JSON.parse(fs.readFileSync(__dirname + '/playlist_info.json').toString());
+  const info = pl_info;
 
   let ytarr = [];
 	for(let obj of info){
@@ -47,6 +48,7 @@ let parse = function(){
 		result.webpage_url = obj.webpage_url;
     result.webpage_url_basename = obj.webpage_url_basename;
     result.playlist = obj.playlist;
+    result.path = conf.dir_path + obj.playlist + '/';
     
     ytarr.push(result);
   }

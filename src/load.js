@@ -3,25 +3,20 @@ const youtubedl = require('youtube-dl');
 
 let fl = JSON.parse(fs.readFileSync(__dirname + '/next.json').toString());
 
-// console.log(fl)
-
 let load_file = function(file){
   var video = youtubedl(file.webpage_url, [`--format=${file.format_id}`], { cwd: __dirname + '/../' });
   
-  // Will be called when the download starts.
   let size = 0;
   video.on('info', function(info) {
-    console.log('Download started');
+    console.log('Download started: ' + info._filename);
     size = info.size;
   });
   
-  let dir = __dirname + '/../videos/' + file.playlist + '/';
-
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
+  if (!fs.existsSync(file.path)){
+    fs.mkdirSync(file.path);
   }
 
-  video.pipe(fs.createWriteStream(dir + file.filename));
+  video.pipe(fs.createWriteStream(file.path + file.filename));
   
   video.on('end', function() {
     console.log('\nfinished downloading!');
@@ -32,10 +27,10 @@ let load_file = function(file){
     pos += chunk.length;
     // `size` should not be 0 here.
     if (size) {
-      var percent = (pos / size * 100).toFixed(2);
-      process.stdout.cursorTo(0);
-      process.stdout.clearLine(1);
-      process.stdout.write(percent + '%');
+      // var percent = (pos / size * 100).toFixed(2);
+      // process.stdout.cursorTo(0);
+      // process.stdout.clearLine(1);
+      // process.stdout.write(percent + '%');
     }
   });
 }

@@ -47,7 +47,7 @@ let processor = async function(){
 
 let cycle = function(){
   processor();
-  let cycle_timer = setTimeout(processor, 5000 * 60 * 5)
+  let cycle_timer = setTimeout(processor, 1000 * 60 * 5)
 }
 
 cycle();
