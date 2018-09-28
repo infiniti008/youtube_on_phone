@@ -7,7 +7,7 @@ let create_list = function(){
 
     list_child.on('close', function(code){
         console.log('CLOSE GET LIST');
-        console.log(code);
+        // console.log(code);
         resolve(true);
     })
   
@@ -23,7 +23,7 @@ let load_files =function(){
     let load_child = cp.fork(__dirname + '/src/load_files.js')
     load_child.on('close', function(code){
       console.log('CLOSE ALL FILES LOAD');
-      console.log(code);
+      // console.log(code);
       resolve(true);
     })
 
@@ -36,6 +36,7 @@ let load_files =function(){
 
 let processor = async function(){
   if(!in_process){
+    console.log("IN PROCESSOR")
     in_process = true;
     let list_process = await create_list();
     // TODO - Exeption
@@ -47,7 +48,7 @@ let processor = async function(){
 
 let cycle = function(){
   processor();
-  let cycle_timer = setTimeout(processor, 1000 * 60 * 5)
+  let cycle_timer = setTimeout(cycle, 1000 * 60 * 2)
 }
 
 cycle();
