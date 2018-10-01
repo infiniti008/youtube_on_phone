@@ -19,7 +19,6 @@ let get = function(){
           resolve(false);
         }
         else{
-          // fs.writeFileSync(__dirname + '/playlist_info.json', JSON.stringify(info));
           pl_info = info;
           resolve(true);
         }
@@ -31,7 +30,6 @@ let get = function(){
 
 let parse = function(){
 	let conf = JSON.parse(fs.readFileSync(__dirname + '/../conf.json').toString());
-  // const info = JSON.parse(fs.readFileSync(__dirname + '/playlist_info.json').toString());
   const info = pl_info;
 
   let ytarr = [];
@@ -54,13 +52,21 @@ let parse = function(){
   }
   
   let toarr = [];
+  let delarr = [];
 
   toarr = ytarr.filter(function(val){
     return !conf.list_local.some(function(local_val){
       return local_val.webpage_url_basename == val.webpage_url_basename;
-    })
-  })
+    });
+  });
 
+  delarr = conf.list_local.filter(function(local_file){
+    return !ytarr.some(function(youtube_file){
+      return local_file.webpage_url_basename == youtube_file.webpage_url_basename;
+    });
+  });
+
+  conf.list_todelete = delarr;
   conf.list_todownload = toarr;
 
 	fs.writeFileSync(__dirname + '/../conf.json', JSON.stringify(conf));

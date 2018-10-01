@@ -12,13 +12,13 @@ let create_list = function(){
     })
   
     list_child.on('error', function(code, err){
-        console.log('ERROR');
-        resolve(false);
+      console.log('ERROR');
+      resolve(false);
     })
   })
 }
 
-let load_files =function(){
+let load_files = function(){
   return new Promise(function(resolve){
     let load_child = cp.fork(__dirname + '/src/load_files.js')
     load_child.on('close', function(code){
@@ -28,8 +28,23 @@ let load_files =function(){
     })
 
     load_child.on('error', function(code, err){
-        console.log('ERROR');
-        resolve(false);
+      console.log('ERROR');
+      resolve(false);
+    })
+  })
+}
+
+let delete_files = function(){
+  return new Promise(function(resolve){
+    let load_child = cp.fork(__dirname + '/src/delete_files.js')
+    load_child.on('close', function(code){
+      console.log('CLOSE ALL FILES DELETED');
+      resolve(true);
+    })
+
+    load_child.on('error', function(code, err){
+      console.log('ERROR');
+      resolve(false);
     })
   })
 }
@@ -42,6 +57,8 @@ let processor = async function(){
     // TODO - Exeption
     if(!list_process) return;
     let load_process = await load_files();
+    if(!load_process) return;
+    let delete_process = await delete_files();
     in_process = false;
   }
 }
