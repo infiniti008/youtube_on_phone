@@ -5,7 +5,7 @@ let get = function(){
   const youtubedl = require('youtube-dl');
   
   let conf = JSON.parse(fs.readFileSync(__dirname + '/../conf.json').toString());
-  let url = conf.urls.playlist_later;
+  let url = conf.urls.playlist;
   
   // Optional arguments passed to youtube-dl.
   let options = ['--username=user', '--password=hunter2'];
