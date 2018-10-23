@@ -1,5 +1,5 @@
 function registerSW(){
-    var regSW = require("register-worker.js");
+    var regSW = importScripts("register-worker.js");
     idxDB.setObject('filesDir', filesDir);
     regSW.registerServiceWorker();
 }
