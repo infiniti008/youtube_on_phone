@@ -6,16 +6,18 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-workbox.precaching.precacheAndRoute([
-    '../styles/style.css',
-    'index.js',
-    '../favicon.ico',
-    '../index.html',
-]);
+// workbox.precaching.precacheAndRoute([
+//     '../styles/style.css',
+//     'index.js',
+//     '../favicon.ico',
+//     '../index.html',
+// ]);
 
 workbox.routing.registerRoute(
-    new RegExp('.*\.js'),
-    workbox.strategies.cacheFirst()
+    /.*\.js'/,
+    () => {
+      console.log('JSSSSS')
+    }
 );
 
 workbox.routing.registerRoute(
