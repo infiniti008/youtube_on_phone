@@ -7,8 +7,8 @@ if (workbox) {
 }
 
 workbox.precaching.precacheAndRoute([
-    'gh-pages/styles/style.css',
-    'gh-pages/scripts/index.js',
-    'gh-pages/favicon.ico',
-    'gh-pages/index.html',
+    '../styles/style.css',
+    'index.js',
+    '../favicon.ico',
+    '../index.html',
 ]);
