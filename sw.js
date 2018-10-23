@@ -27,6 +27,9 @@ if (workbox) {
   },
   {
     "url": "favicon.ico"
+  },
+  {
+    "url": "manifest.webmanifest"
   }
 ]);
 
