@@ -19,7 +19,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    new RegExp('.*\.html'),
+    /.*\.html/,
     workbox.strategies.cacheFirst()
 );
 
