@@ -1,7 +1,7 @@
 function registerSW(){
-    var regSW = importScripts("register-worker.js");
-    idxDB.setObject('filesDir', filesDir);
-    regSW.registerServiceWorker();
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('scripts/sw.js');
+    }
 }
 
 window.addEventListener('load', registerSW)
