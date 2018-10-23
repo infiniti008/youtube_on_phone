@@ -1,0 +1,21 @@
+{
+    "lang": "en",
+    "name": "Slava Test",
+    "description": "The ultimate futuristic racing game from the future!",
+    "short_name": "Test",
+    "icons": [{
+        "src": "/gh-pages/favicon.ico",
+        "sizes": "64x64"
+    }],
+    "scope": "/gh-pages/",
+    "start_url": "/gh-pages/index.html",
+    "display": "fullscreen",
+    "orientation": "landscape",
+    "theme_color": "aliceblue",
+    "background_color": "red",
+    "serviceworker": {
+        "src": "/gh-pages/sw.js",
+        "scope": "/gh-pages/",
+        "update_via_cache": "none"
+    }
+}
