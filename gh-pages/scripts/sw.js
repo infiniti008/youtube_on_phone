@@ -6,12 +6,12 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-// workbox.precaching.precacheAndRoute([
-//     '../styles/style.css',
-//     'index.js',
-//     '../favicon.ico',
-//     '../index.html',
-// ]);
+workbox.precaching.precacheAndRoute([
+    '../styles/style.css',
+    'index.js',
+    '../favicon.ico',
+    '../index.html',
+]);
 
 workbox.routing.registerRoute(
     /.*\.js'/,
@@ -21,8 +21,11 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    /.*\.html/,
-    workbox.strategies.cacheFirst()
+  /index\.html/,
+  // https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox.strategies
+  workbox.strategies.networkFirst({
+    cacheName: 'workbox:html',
+  })
 );
 
 workbox.routing.registerRoute(
