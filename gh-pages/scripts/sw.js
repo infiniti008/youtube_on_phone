@@ -25,7 +25,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
     // Cache image files
-    /.*\.(?:png|jpg|jpeg|svg|gif|ico)/,
+    /.*\.ico/,
     // Use the cache if it's available
     workbox.strategies.cacheFirst()
   );
