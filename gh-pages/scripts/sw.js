@@ -29,5 +29,5 @@ workbox.routing.registerRoute(
     // Cache image files
     /.*\.ico/,
     // Use the cache if it's available
-    workbox.strategies.cacheFirst()
+    () => {console.log('ICO')}
   );
