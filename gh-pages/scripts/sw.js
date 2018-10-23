@@ -14,12 +14,12 @@ workbox.precaching.precacheAndRoute([
 ]);
 
 workbox.routing.registerRoute(
-    new RegExp('.*\.js'),
+    new RegExp('**.js'),
     workbox.strategies.networkFirst()
 );
 
 workbox.routing.registerRoute(
-    new RegExp('.*\.html'),
+    new RegExp('**.html'),
     workbox.strategies.networkFirst()
 );
 
