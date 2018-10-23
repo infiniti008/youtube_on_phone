@@ -4,34 +4,22 @@ if (workbox) {
     console.log(`Yay! Workbox is loaded 🎉`);
 
     workbox.precaching.precacheAndRoute([
-  {
-    "url": "style/main.css"
-  },
-  {
-    "url": "index.html"
-  },
-  {
-    "url": "js/animation.js"
-  },
-  {
-    "url": "images/home/business.jpg"
-  },
-  {
-    "url": "images/icon/icon.svg"
-  },
-  {
-    "url": "pages/offline.html"
-  },
-  {
-    "url": "pages/404.html"
-  },
-  {
-    "url": "favicon.ico"
-  },
-  {
-    "url": "manifest.webmanifest"
-  }
-]);
+        "style/main.css",
+        "index.html",
+        "js/animation.js",
+        "images/home/business.jpg",
+        "images/icon/icon.svg",
+        "pages/offline.html",
+        "pages/404.html",
+        "favicon.ico",
+        "favicon.png",
+        "manifest.webmanifest",
+        "style/bootstrap.min.css",
+        "js/popper.min.js",
+        "js/knockout-min.js",
+        "js/jquery-3.2.1.slim.min.js",
+        "js/bootstrap.min.js"
+    ]);
 
     workbox.routing.registerRoute(
         /(.*)articles(.*)\.(?:png|gif|jpg)/,
