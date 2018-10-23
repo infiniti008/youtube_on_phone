@@ -19,6 +19,11 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
+    new RegExp('.*\.html'),
+    workbox.strategies.networkFirst()
+);
+
+workbox.routing.registerRoute(
     // Cache image files
     /.*\.(?:png|jpg|jpeg|svg|gif|ico)/,
     // Use the cache if it's available
