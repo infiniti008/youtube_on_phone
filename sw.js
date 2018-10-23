@@ -39,7 +39,7 @@ if (workbox) {
         cacheName: 'images-cache',
         plugins: [
             new workbox.expiration.Plugin({
-            maxEntries: 50,
+            maxEntries: 100,
             maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
             })
         ]
@@ -50,7 +50,7 @@ if (workbox) {
         cacheName: 'articles-cache',
         plugins: [
             new workbox.expiration.Plugin({
-            maxEntries: 50,
+            maxEntries: 100,
             })
         ]
     });
@@ -70,7 +70,7 @@ if (workbox) {
         cacheName: 'posts-cache',
         plugins: [
             new workbox.expiration.Plugin({
-                maxEntries: 50,
+                maxEntries: 100,
             })
         ]
     });
@@ -84,13 +84,7 @@ if (workbox) {
             return response;
         })
         .catch(response => {
-                console.log(response)
             return caches.match('pages/offline.html');
-            // } else {
-                // return caches.match('pages/offline.html');
-                // return response;
-            // }
-            
         });
     });
 

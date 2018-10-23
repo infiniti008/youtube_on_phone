@@ -4,18 +4,18 @@
     "description": "The ultimate futuristic racing game from the future!",
     "short_name": "Test",
     "icons": [{
-        "src": "/gh-pages/favicon.ico",
-        "sizes": "64x64"
+        "src": "/youtube_on_phone/favicon.png",
+        "sizes": "144x144"
     }],
-    "scope": "/gh-pages/",
-    "start_url": "/gh-pages/index.html",
+    "scope": "/youtube_on_phone/",
+    "start_url": "/youtube_on_phone/index.html",
     "display": "fullscreen",
     "orientation": "landscape",
     "theme_color": "aliceblue",
     "background_color": "red",
     "serviceworker": {
-        "src": "/gh-pages/sw.js",
-        "scope": "/gh-pages/",
+        "src": "/youtube_on_phone/sw.js",
+        "scope": "youtube_on_phone",
         "update_via_cache": "none"
     }
 }
