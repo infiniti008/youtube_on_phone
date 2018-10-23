@@ -1,8 +1,7 @@
 function registerSW(){
-    console.log('sdfkjb')
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('scripts/sw.js');
-    }
+    var regSW = require("register-worker.js");
+    idxDB.setObject('filesDir', filesDir);
+    regSW.registerServiceWorker();
 }
 
 window.addEventListener('load', registerSW)
