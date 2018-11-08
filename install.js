@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 rl.question('Please specify URL for YouTube playlist: ', (answer) => {
     conf.urls.playlist = answer;
     console.log("Playlist saved");
-    rl.question('Please specify path to load media: /path/path/', (answer) => {
+    rl.question('Please specify path to load media /path/path/: ', (answer) => {
         if(!answer.match(/\/$/i)) {
             answer = answer + '/';
         }
