@@ -16,7 +16,8 @@ npm run install
 >Clarify url for YouTube playlist.
 >Clarify path to load media.
 # Run:
-```npm run start
+```
+npm run start
 ```
 This command run watching for your playlist every 5 minutes. If You add new video to playlist - this video will download to directory called like playlist name in specified path.
 If You delete video from playlist - this video will delete from local directory.
