@@ -1,4 +1,4 @@
 videos
-**/node_modules/*
-!**/node_modules/youtube-dl
+node_modules
 .vscode
+tests
